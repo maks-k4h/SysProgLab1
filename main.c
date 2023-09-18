@@ -132,7 +132,8 @@ int process_file(FILE *file, int verbose)
     {
         char c = fgetc(file);
 
-        if ((isalnum(c) == 0 && c != '-') || feof(file))
+        // check if c is a part of a word
+        if ((isalnum(c) == 0 && (buf_p == 0 || c != '-')) || feof(file))
         {
             // check if the word is empty
             if (buf_p == 0)
