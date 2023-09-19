@@ -142,18 +142,24 @@ int process_file(FILE *file, int verbose)
             word_buf[buf_p] = 0;   // set str delimiter
             
             // count +1 for this word
+            int current_count;
             if (root == NULL)
+            {
                 root = init_tree(word_buf, 1);
+                current_count = 1;
+            }
             else
             {
-                int current_count = upsert_word_into_tree(root, word_buf);
-                max_count = max_count > current_count ? max_count : current_count;
+                current_count = upsert_word_into_tree(root, word_buf);
             }
+            // update max_count
+            max_count = max_count > current_count ? max_count : current_count;
+            // reset buffer's state
             buf_p = 0;
         }
         else
         {
-            word_buf[buf_p] = c;
+            word_buf[buf_p] = tolower(c);
             buf_p++;
 
             // check if the word is not too long
@@ -165,6 +171,8 @@ int process_file(FILE *file, int verbose)
             }
         }
     }
+
+    printf("%d", max_count);
 
     // process word-count tree
     
