@@ -172,8 +172,6 @@ int process_file(FILE *file, int verbose)
         }
     }
 
-    printf("%d", max_count);
-
     // process word-count tree
     
     if (verbose)
